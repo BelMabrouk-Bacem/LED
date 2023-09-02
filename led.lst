@@ -1,0 +1,155 @@
+CCS PCM C Compiler, Version 5.008, 5967               11-mai-19 11:36
+
+               Filename:   C:\Users\bacem\Desktop\recherche\led\led.lst
+
+               ROM used:   88 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #include <led.h> 
+.................... #include <16F877A.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT            	//No brownout reset 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+....................  
+.................... #use delay(crystal=16000000) 
+0004:  MOVLW  22
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  05
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  2E
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETURN
+....................  
+....................  
+....................  
+.................... void main() 
+0019:  MOVF   03,W
+001A:  ANDLW  1F
+001B:  MOVWF  03
+001C:  BSF    03.5
+001D:  BSF    1F.0
+001E:  BSF    1F.1
+001F:  BSF    1F.2
+0020:  BCF    1F.3
+0021:  MOVLW  07
+0022:  MOVWF  1C
+0023:  BCF    03.7
+.................... {//set_tris_B(0x01); 
+.................... //set_tris_A(0x00); 
+.................... /*output_A(0x00); 
+.................... OUTPUT_HIGH(PIN_A3); 
+.................... OUTPUT_LOW(PIN_A2);*/ 
+....................    while(true) 
+....................    { OUTPUT_HIGH(PIN_A3);delay_ms(100);OUTPUT_LOW(PIN_A3);delay_ms(100); 
+0024:  BCF    05.3
+0025:  BCF    03.5
+0026:  BSF    05.3
+0027:  MOVLW  64
+0028:  MOVWF  22
+0029:  CALL   004
+002A:  BSF    03.5
+002B:  BCF    05.3
+002C:  BCF    03.5
+002D:  BCF    05.3
+002E:  MOVLW  64
+002F:  MOVWF  22
+0030:  CALL   004
+....................      OUTPUT_LOW(PIN_A2); 
+0031:  BSF    03.5
+0032:  BCF    05.2
+0033:  BCF    03.5
+0034:  BCF    05.2
+....................     if ( input(PIN_A0)==1) 
+0035:  BSF    03.5
+0036:  BSF    05.0
+0037:  BCF    03.5
+0038:  BTFSS  05.0
+0039:  GOTO   045
+....................     { 
+....................      OUTPUT_LOW(PIN_A3);//output_A(0x04); 
+003A:  BSF    03.5
+003B:  BCF    05.3
+003C:  BCF    03.5
+003D:  BCF    05.3
+....................     // bit_set(PORTA,0); 
+....................       delay_ms(1000); 
+003E:  MOVLW  04
+003F:  MOVWF  21
+0040:  MOVLW  FA
+0041:  MOVWF  22
+0042:  CALL   004
+0043:  DECFSZ 21,F
+0044:  GOTO   040
+....................     }/*else{  
+....................        output_A(0x00); 
+....................        delay_ms(1000); 
+....................        OUTPUT_HIGH(PIN_A3); 
+....................        OUTPUT_LOW(PIN_A2); 
+....................     }*/ 
+....................     if ( input(PIN_A1)==1) 
+0045:  BSF    03.5
+0046:  BSF    05.1
+0047:  BCF    03.5
+0048:  BTFSS  05.1
+0049:  GOTO   055
+....................     { 
+....................     OUTPUT_HIGH(PIN_A2);// output_A(0x05); 
+004A:  BSF    03.5
+004B:  BCF    05.2
+004C:  BCF    03.5
+004D:  BSF    05.2
+....................     // bit_set(PORTA,0); 
+....................       delay_ms(1000); 
+004E:  MOVLW  04
+004F:  MOVWF  21
+0050:  MOVLW  FA
+0051:  MOVWF  22
+0052:  CALL   004
+0053:  DECFSZ 21,F
+0054:  GOTO   050
+....................     }/*else{  
+0055:  BSF    03.5
+0056:  GOTO   024
+....................        output_A(0x00); 
+....................        delay_ms(1000); 
+....................        OUTPUT_HIGH(PIN_A3); 
+....................        OUTPUT_LOW(PIN_A2); 
+....................     }*/ 
+....................    } 
+....................    }   
+....................  
+0057:  SLEEP
+....................  
+
+Configuration Fuses:
+   Word  1: 3F32   HS NOWDT PUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
